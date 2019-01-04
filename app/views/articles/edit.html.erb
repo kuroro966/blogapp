@@ -1,4 +1,4 @@
-<% if user_signed_in? %>
+<%if @current_user_id==@article.user_id %>
   <%= form_for @article do |f| %><!--@productはID特定済、reviewは空の状態。f.text_fieldでｶﾗﾑとﾚｺｰﾄﾞを取得する　CreateｱｸｼｮﾝかUpdateｱｸｼｮﾝが自動判断で起こる-->
     
       <%= f.label :評価 %>
@@ -8,5 +8,6 @@
       <% end %>
       
   <% end %>
-
+  <%else%>
+  <p>他人の投稿を書き換えるのは良くない。（ゲーテ）</p>
 <% end %>

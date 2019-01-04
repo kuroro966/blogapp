@@ -1,34 +1,25 @@
-<nav>
-  <div class="nav-wrapper">
-    <a href="#" class="brand-logo">Logo</a>
-    <ul id="nav-mobile" class="right hide-on-med-and-down">
-      <li><%= link_to "SignIn", new_user_session_path %></li>
-      <li><%= link_to "SingOut", destroy_user_session_path, method: :delete %></li>
-      <li><%= link_to "SignUp", new_user_registration_path %></li>
-      <li><%= link_to "NewPost", new_article_path %></li>
-    </ul>
-  </div>
-</nav> 
- 
- 
- <div class="row">
-      <%@articles.each do |article| %>
-        <div class="col s12 m6">
-          <div class="card white darken-1">
-            <div class="card-content black-text">
-
-              <span class="card-title"><%= article.id %></span>
-              <p><%= article.text %></p>
-            </div>
-            <div class="card-action">
-              <%= link_to "SHOW", article_path(article) %>
+<div class="row">
+  <%@articles.each do |article| %>
+    <div class="col s12 m6">
+      <div class="card white darken-1">
+    
+        <div class="card-content black-text">
+          <span class="card-title">記事ID.<%= article.id %></span>
+          <p><%= simple_format(article.text) %></p>
+          <p>(投稿者ID.<%= article.user_id %>)</p>
+        </div>
+        
+        <div class="card-action">
+          <%= link_to "SHOW", article_path(article) %>
+          <%if user_signed_in? %>
+            <% if article.user_id == current_user.id %>
               <%= link_to "EDIT", edit_article_path(article) %>
               <%= link_to "DESTROY", article_path(article) , method: :delete %>
-              
-           
-
-            </div>
-          </div>
+            <%end%>
+          <%end%>
         </div>
-      <% end %>
+    
       </div>
+    </div>
+  <% end %>
+</div>
